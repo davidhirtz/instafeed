@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\InstagramToken;
+use Exception;
 use GuzzleHttp\Client;
 use Yii;
 use yii\web\Controller;
@@ -49,17 +50,22 @@ class ApiController extends Controller
      */
     private function getMediaForAccessToken($accessToken)
     {
-        $client = new Client();
-        $response = $client->get('https://graph.instagram.com/me/media?fields=media_url,permalink', [
-            'query' => [
-                'access_token' => $accessToken,
-                'fields' => 'id,caption,media_url,permalink,media_type',
-            ],
-        ]);
+        try {
+            $client = new Client();
+            $response = $client->get('https://graph.instagram.com/me/media?fields=media_url,permalink', [
+                'query' => [
+                    'access_token' => $accessToken,
+                    'fields' => 'id,caption,media_url,permalink,media_type',
+                ],
+            ]);
 
-        $data = json_decode($response->getBody()->getContents(), true);
-        unset($data['paging']['next']);
+            $data = json_decode($response->getBody()->getContents(), true);
+            unset($data['paging']['next']);
+            return $data;
+        } catch (Exception $exception) {
+            Yii::error($exception);
+        }
 
-        return $data;
+        return [];
     }
 }
