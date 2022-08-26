@@ -127,10 +127,7 @@ class InstagramTokenController extends Controller
     public function actionReset($id)
     {
         $instagram = $this->findInstagramToken($id);
-
-        foreach (['access_token', 'verification_token', 'username', 'refreshed_at', 'expires_at'] as $attribute) {
-            $instagram->$attribute = null;
-        }
+        $instagram->resetInstagramAttributes();
 
         if ($instagram->update()) {
             $this->success('Instagram account was cleared.');

@@ -21,6 +21,7 @@ use yii\helpers\Inflector;
  * @property string $slug
  * @property string|null $description
  * @property string|null $username
+ * @property string|null $user_id
  * @property int|null $cache_duration
  * @property string $verification_token
  * @property string|null $access_token
@@ -96,6 +97,9 @@ class InstagramToken extends ActiveRecord
         return parent::beforeSave($insert);
     }
 
+    /**
+     * @return $this
+     */
     public function refreshAccessToken()
     {
         $response = (new Client())->get('https://graph.instagram.com/refresh_access_token', [
@@ -106,6 +110,19 @@ class InstagramToken extends ActiveRecord
         ]);
 
         $this->setAttributesFromApiResponse($response);
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function resetInstagramAttributes()
+    {
+        foreach (['access_token', 'verification_token', 'username', 'refreshed_at', 'expires_at'] as $attribute) {
+            $this->$attribute = null;
+        }
+
+        return $this;
     }
 
     /**

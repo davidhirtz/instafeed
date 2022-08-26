@@ -40,7 +40,7 @@ class InstagramTokenActiveForm extends ActiveForm
 
         if ($this->model->access_token) {
             echo $this->horizontalLine();
-            echo $this->plainTextRow($this->model->getAttributeLabel('username'), $this->model->username);
+            echo $this->plainTextRow($this->model->getAttributeLabel('username'), "{$this->model->username} ({$this->model->user_id})");
             echo $this->plainTextRow($this->model->getAttributeLabel('access_token'), $this->model->access_token ? '*******' : '');
             echo $this->plainTextRow($this->model->getAttributeLabel('refreshed_at'), $this->model->refreshed_at ? Yii::$app->getFormatter()->asDatetime($this->model->refreshed_at) : '–');
             echo $this->plainTextRow($this->model->getAttributeLabel('expires_at'), $this->model->expires_at ? Yii::$app->getFormatter()->asDatetime($this->model->expires_at) : '–');

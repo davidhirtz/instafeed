@@ -7,6 +7,7 @@ use davidhirtz\yii2\skeleton\web\Controller;
 use Exception;
 use GuzzleHttp\Client;
 use Yii;
+use yii\web\BadRequestHttpException;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -102,6 +103,7 @@ class AuthController extends Controller
             ]));
 
         $data = json_decode($response->getBody()->getContents(), true);
+        $instagram->user_id = $data['id'] ?? null;
         $instagram->username = $data['username'] ?? null;
 
         if (!$instagram->save()) {
@@ -112,6 +114,53 @@ class AuthController extends Controller
         return $this->render('completed', [
             'instagram' => $instagram,
         ]);
+    }
+
+    /**
+     * @link https://developers.facebook.com/docs/development/create-an-app/app-dashboard/data-deletion-callback
+     * @return Response
+     */
+    public function actionDeauthorize()
+    {
+        if ($signedRequest = Yii::$app->getRequest()->post('signed_request')) {
+            if ($data = $this->parseSignedRequest($signedRequest)) {
+                /** @var InstagramToken[] $models */
+                $models = InstagramToken::find()
+                    ->where(['user_id' => $data['user_id']])
+                    ->all();
+
+                foreach ($models as $model) {
+                    $model->resetInstagramAttributes()->update();
+                }
+
+                $code = urlencode(base64_encode(serialize($data['user_id'])));
+
+                return $this->asJson([
+                    'confirmation_code' => $code,
+                    'url' => Yii::$app->getUrlManager()->createAbsoluteUrl(['auth/deleted', 'code' => $code]),
+                ]);
+            }
+        }
+
+        throw new BadRequestHttpException();
+    }
+
+    /**
+     * The link returned to the user in {@link AuthController::actionDeauthorize()} to prove the data
+     * was deleted.
+     *
+     * @param string $code
+     * @return string
+     */
+    public function actionDeleted($code)
+    {
+        try {
+            return $this->render('deleted', [
+                'userId' => unserialize(base64_decode(urldecode($code))),
+            ]);
+        } catch (Exception $e) {
+            throw new NotFoundHttpException();
+        }
     }
 
     /**
@@ -141,5 +190,33 @@ class AuthController extends Controller
     private function getRedirectUri()
     {
         return Yii::$app->getUrlManager()->createAbsoluteUrl(['/auth/authorize']);
+    }
+
+    /**
+     * @param string $signedRequest
+     * @return array|null
+     */
+    private function parseSignedRequest($signedRequest)
+    {
+        list($encodedSignature, $payload) = explode('.', $signedRequest, 2);
+
+        function base64UrlDecode($input)
+        {
+            return base64_decode(strtr($input, '-_', '+/'));
+        }
+
+        // decode the data
+        $signature = base64UrlDecode($encodedSignature);
+        $data = json_decode(base64UrlDecode($payload), true);
+
+        // confirm the signature
+        $expectedSignature = hash_hmac('sha256', $payload, Yii::$app->params['instagramAppSecret'], true);
+
+        if ($signature !== $expectedSignature) {
+            Yii::debug('Bad Signed JSON signature!');
+            return null;
+        }
+
+        return $data;
     }
 }

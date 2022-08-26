@@ -8,7 +8,7 @@ return [
     'components' => [
         'urlManager' => [
             'rules' => [
-                '<action:authorize|login>' => 'auth/<action>',
+                '<action:authorize|deleted|login>' => 'auth/<action>',
                 '<slug>' => 'api/',
             ],
         ],
