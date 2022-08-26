@@ -1,0 +1,30 @@
+# Composer
+/vendor
+composer.phar
+
+# Config.
+/config/db.php
+/config/params.php
+/config/local.php
+
+# Production
+/web/css/site.min.css.map
+/web/css/site.css
+/web/js/site.js
+
+# Gulp
+/node_modules
+package-lock.json
+
+# OS cache files
+Thumbs.db
+.DS_Store
+
+# PhpStorm
+/.idea/workspace.xml
+/.idea/tasks.xml
+/.idea/jsLibraryMappings.xml
+
+# PhpUnit and local PhpUnit config
+phpunit.phar
+phpunit.xml

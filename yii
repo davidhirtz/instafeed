@@ -1,0 +1,26 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Console.
+ *
+ * Checks passed arguments for given config file, otherwise uses main.php.
+ * The config file must be present in /config/console.
+ *
+ * Example commands:
+ *
+ * # php yii <command> (uses default /config/main.php config)
+ * # php yii dev <command> (uses /config/dev.php config)
+ */
+if (isset($_SERVER['argv'][1]) && in_array($_SERVER['argv'][1], ['dev', 'local'])) {
+    defined('YII_ENV') or define('YII_ENV', $_SERVER['argv'][1]);
+    defined('YII_DEBUG') or define('YII_DEBUG', true);
+
+    unset($_SERVER['argv'][1]);
+    $_SERVER['argv'] = array_values($_SERVER['argv']);
+}
+
+$vendor = __DIR__ . '/vendor/';
+require($vendor . '/autoload.php');
+require($vendor . '/yiisoft/yii2/Yii.php');
+
+exit((new \davidhirtz\yii2\skeleton\console\Application(require(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . YII_ENV . '.php')))->run());

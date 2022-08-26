@@ -1,0 +1,50 @@
+{
+  "name": "davidhirtz/yii2-app",
+  "description": "Yii2 Application",
+  "homepage": "https://www.davidhirtz.com/",
+  "type": "project",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "ext-json": "*",
+    "davidhirtz/yii2-skeleton": "^1.4",
+    "davidhirtz/yii2-anakin": "^1.1"
+  },
+  "require-dev": {
+    "yiisoft/yii2-debug": "*",
+    "yiisoft/yii2-gii": "*",
+    "composer/composer": "^1.0"
+  },
+  "config": {
+    "process-timeout": 1800,
+    "fxp-asset": {
+      "enabled": false
+    },
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true
+    }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ],
+  "scripts": {
+    "post-install-cmd": [
+      "yii\\composer\\Installer::postInstall",
+      "php yii migrate --interactive=0"
+    ]
+  },
+  "extra": {
+    "yii\\composer\\Installer::postInstall": {
+      "setPermission": [
+        {
+          "runtime": "0777",
+          "web/assets": "0777",
+          "yii": "0755"
+        }
+      ]
+    }
+  }
+}

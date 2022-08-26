@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Bootbox" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/../meineregion/vendor/bower-asset/bootbox/bootbox.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../meineregion/vendor/bower-asset/bootbox/bootbox.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>
