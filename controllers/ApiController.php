@@ -5,7 +5,7 @@ namespace app\controllers;
 use app\models\InstagramToken;
 use GuzzleHttp\Client;
 use Yii;
-use yii\rest\Controller;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
