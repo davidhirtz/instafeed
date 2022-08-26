@@ -18,7 +18,7 @@ class InstagramTokenController extends Controller
      */
     public function actionRefreshAll()
     {
-        $query = InstagramToken::find()->where(['expires_at' => new Date('1 month')]);
+        $query = InstagramToken::find()->where(['<', 'expires_at', new Date('1 month')]);
 
         /** @var InstagramToken $instagram */
         foreach ($query->each() as $instagram) {
