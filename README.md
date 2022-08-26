@@ -7,15 +7,10 @@ extension [yii2-cms](https://github.com/davidhirtz/yii2-cms/) by David Hirtz.
 STRUCTURE
 -------------------
 
-      assets/             contains assets definition
-      commands/           contains console commands (controllers)
-      components/         contains components (application components and widgets)
       config/             contains application configurations
       controllers/        contains web controller classes
-      mail/               contains view files for e-mails
       models/             contains model classes
       runtime/            contains files generated during runtime
-      tests/              contains various tests for the basic application
       vendor/             contains dependent 3rd-party packages
       views/              contains view files for the web application
       web/                contains the entry script and web resources
@@ -34,7 +29,7 @@ Fetch source code via GIT.
 
 ~~~
 git init
-git remote add origin git@github.com:davidhirtz/REPOSITORY.git
+git remote add origin git@github.com:davidhirtz/instafeed.git
 git fetch origin
 git branch master origin/master
 git checkout master
