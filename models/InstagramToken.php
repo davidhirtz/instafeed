@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use app\controllers\SiteController;
+use app\controllers\AuthController;
 use davidhirtz\yii2\datetime\DateTime;
 use davidhirtz\yii2\datetime\DateTimeBehavior;
 use davidhirtz\yii2\skeleton\behaviors\TimestampBehavior;
@@ -11,12 +11,14 @@ use davidhirtz\yii2\skeleton\db\ActiveRecord;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 use Yii;
+use yii\helpers\Inflector;
 
 /**
  * InstagramToken model.
  *
  * @property int $id
  * @property string $name
+ * @property string $slug
  * @property string|null $description
  * @property string|null $username
  * @property int|null $cache_duration
@@ -53,11 +55,11 @@ class InstagramToken extends ActiveRecord
                 'required',
             ],
             [
-                ['name'],
+                ['slug'],
                 'unique',
             ],
             [
-                ['description'],
+                ['name', 'slug', 'description'],
                 'string',
                 'max' => 255,
             ],
@@ -67,6 +69,15 @@ class InstagramToken extends ActiveRecord
                 'integerOnly' => true,
             ],
         ];
+    }
+
+    /**
+     * @return bool
+     */
+    public function beforeValidate()
+    {
+        $this->slug = Inflector::slug($this->slug ?: $this->name);
+        return parent::beforeValidate();
     }
 
     /**
@@ -112,11 +123,19 @@ class InstagramToken extends ActiveRecord
     /**
      * @return string
      */
+    public function getCacheKey()
+    {
+        return "ig-cache-{$this->id}";
+    }
+
+    /**
+     * @return string
+     */
     public function getLoginUrl()
     {
-        /** @see SiteController::actionLogin() */
+        /** @see AuthController::actionLogin() */
         return Yii::$app->getUrlManager()->createAbsoluteUrl([
-            'site/login', 'state' => urlencode(base64_encode(serialize([
+            'auth/login', 'state' => urlencode(base64_encode(serialize([
                 $this->id, $this->verification_token
             ]))),
         ]);
@@ -160,7 +179,9 @@ class InstagramToken extends ActiveRecord
     public function attributeLabels(): array
     {
         return [
-            'name' => Yii::t('skeleton', 'Name'),
+            'name' => Yii::t('skeleton', 'Account'),
+            'slug' => Yii::t('app', 'API Endpoint'),
+            'username' => Yii::t('skeleton', 'User'),
             'description' => Yii::t('skeleton', 'Description'),
             'cache_duration' => Yii::t('app', 'Request caching'),
             'refreshed_at' => Yii::t('app', 'Last refreshed'),

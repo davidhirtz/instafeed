@@ -70,7 +70,7 @@ class InstagramTokenGridView extends GridView
     public function usernameColumn(): array
     {
         return [
-            'attribute' => 'name',
+            'attribute' => 'username',
             'content' => function (InstagramToken $instagram) {
                 return ($username = $instagram->username) ? Html::a($username, $this->getRoute($instagram)) : '';
             }

@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use app\models\InstagramToken;
-use davidhirtz\yii2\datetime\DateTime;
 use davidhirtz\yii2\skeleton\web\Controller;
 use Exception;
 use GuzzleHttp\Client;
@@ -14,15 +13,14 @@ use yii\web\Response;
 use yii\web\ServerErrorHttpException;
 
 /**
- * Class SiteController
- * @package app\controllers
+ * AuthController implements the handshake with Instagram/Facebook and stores the token.
  */
-class SiteController extends Controller
+class AuthController extends Controller
 {
     /**
      * @return string
      */
-    public $layout = '@app/modules/admin/views/layouts/main';
+    public $layout = '@skeleton/modules/admin/views/layouts/main';
 
     /**
      * @inheritDoc
@@ -45,7 +43,7 @@ class SiteController extends Controller
             throw new ForbiddenHttpException(Yii::t('app', 'This Instagram account is already connected to a user.'));
         }
 
-        /** @see SiteController::actionAuthorize() */
+        /** @see AuthController::actionAuthorize() */
         return $this->redirect('https://api.instagram.com/oauth/authorize?' . http_build_query([
                 'client_id' => Yii::$app->params['instagramAppId'],
                 'redirect_uri' => $this->getRedirectUri(),
@@ -142,6 +140,6 @@ class SiteController extends Controller
      */
     private function getRedirectUri()
     {
-        return Yii::$app->getUrlManager()->createAbsoluteUrl(['/site/authorize']);
+        return Yii::$app->getUrlManager()->createAbsoluteUrl(['/auth/authorize']);
     }
 }

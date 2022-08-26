@@ -87,7 +87,7 @@ class InstagramTokenController extends Controller
 
         if ($instagram->load(Yii::$app->getRequest()->post()) && $instagram->update()) {
             $this->success('Instagram account was updated.');
-            return $this->redirect(['index']);
+            return $this->redirect(['update', 'id' => $instagram->id]);
         }
 
         return $this->render('update', [

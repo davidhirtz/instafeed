@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\widgets\forms;
 
+use app\controllers\ApiController;
 use app\models\InstagramToken;
 use davidhirtz\yii2\skeleton\widgets\bootstrap\ActiveForm;
 use Yii;
@@ -31,6 +32,11 @@ class InstagramTokenActiveForm extends ActiveForm
         ];
 
         echo $this->field($this->model, 'cache_duration')->dropdownList($items);
+
+        /** @see ApiController::actionIndex() */
+        $hostInfo = rtrim(Yii::$app->getRequest()->getHostInfo(), '/') . '/';
+        echo $this->field($this->model, 'slug', ['enableClientValidation' => false])
+            ->prependInput($hostInfo);
 
         if ($this->model->access_token) {
             echo $this->horizontalLine();
