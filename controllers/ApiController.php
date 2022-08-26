@@ -19,10 +19,12 @@ class ApiController extends Controller
      */
     public $enableCsrfValidation = false;
 
-    /**
-     * @var string
-     */
-    public $format = Response::FORMAT_JSON;
+
+    public function beforeAction($action)
+    {
+        $this->response->format = Response::FORMAT_JSON;
+        return parent::beforeAction($action);
+    }
 
     /**
      * @param string $slug
