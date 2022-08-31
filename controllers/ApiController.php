@@ -39,6 +39,8 @@ class ApiController extends Controller
             throw new NotFoundHttpException();
         }
 
+        Yii::$app->getResponse()->getHeaders()->set('Access-Control-Allow-Origin', '*');
+
         return Yii::$app->getCache()->getOrSet($instagram->getCacheKey(), function () use ($instagram) {
             return $this->getMediaForAccessToken($instagram->access_token);
         }, $instagram->cache_duration);
