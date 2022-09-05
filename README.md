@@ -94,7 +94,3 @@ Important: Directories `runtime` and `web/assets` need write permissions for web
 
 You can enable development mode by setting an environment variable `YII_ENV` to "dev" or "local". The latter is excluded
 from version control.
-
-### Assets
-
-SCSS and Javascript assets are processed with [Gulp](https://gulpjs.com/) and will be automatically published.
