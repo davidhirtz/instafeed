@@ -1,24 +1,24 @@
 README
 ============================
 
-This project is based on the [Yii 2](http://www.yiiframework.com/) Framework and the Yii 2
-extension [yii2-cms](https://github.com/davidhirtz/yii2-cms/) by David Hirtz.
+This project provides a basic backend to manage and configure Instagram Access Tokens through the [Instagram Basic Display API](https://developers.facebook.com/docs/instagram-basic-display-api). It's written in PHP, based on the [Yii 2](http://www.yiiframework.com/) Framework by David Hirtz for [Anakin](https://www.anakin.co/).
 
 STRUCTURE
 -------------------
 
+      commands            contains the console controllers for the cron job
       config/             contains application configurations
       controllers/        contains web controller classes
+      messages/           contains translations (if required) 
       models/             contains model classes
       runtime/            contains files generated during runtime
-      vendor/             contains dependent 3rd-party packages
       views/              contains view files for the web application
       web/                contains the entry script and web resources
 
 REQUIREMENTS
 ------------
 
-This project requires PHP 7.4 or higher and MySQL 8.x and ImageMagick. Detailed requirements can be found by running
+This project requires PHP 7.4 or higher and MySQL 8.x. Detailed requirements can be found by running
 Composer.
 
 
