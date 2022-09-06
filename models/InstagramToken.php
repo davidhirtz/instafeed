@@ -118,7 +118,7 @@ class InstagramToken extends ActiveRecord
      */
     public function resetInstagramAttributes()
     {
-        foreach (['access_token', 'verification_token', 'username', 'refreshed_at', 'expires_at'] as $attribute) {
+        foreach (['access_token', 'verification_token', 'username', 'user_id', 'refreshed_at', 'expires_at'] as $attribute) {
             $this->$attribute = null;
         }
 
