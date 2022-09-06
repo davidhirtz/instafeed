@@ -7,6 +7,7 @@
  */
 
 use app\models\InstagramToken;
+use app\modules\admin\controllers\InstagramTokenController;
 use app\modules\admin\widgets\forms\InstagramTokenActiveForm;
 use app\modules\admin\widgets\panels\InstagramTokenHelpPanel;
 use davidhirtz\yii2\skeleton\helpers\Html;
@@ -38,6 +39,7 @@ $this->setBreadcrumb(Yii::t('app', 'Accounts'), ['index']);
 <?= Panel::widget([
     'type' => 'danger',
     'title' => Yii::t('app', 'Delete account'),
+    /** @see InstagramTokenController::actionDelete() */
     'content' => DeleteActiveForm::widget([
         'model' => $instagram,
     ]),
