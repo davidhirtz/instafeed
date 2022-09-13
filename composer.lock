@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0d0da100da390814d0ae20f019917794",
+    "content-hash": "4f68a2251428c9e4696a029115606f76",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -1349,6 +1349,18 @@
             "type": "npm-asset",
             "license": [
                 "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/skeleton-router",
+            "version": "3.0.11",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/skeleton-router/-/skeleton-router-3.0.11.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "ISC"
             ]
         },
         {

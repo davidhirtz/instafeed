@@ -74,6 +74,7 @@
       <path value="$PROJECT_DIR$/vendor/robthree/twofactorauth" />
       <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
       <path value="$PROJECT_DIR$/vendor/davidhirtz/yii2-anakin" />
+      <path value="$PROJECT_DIR$/vendor/npm-asset/skeleton-router" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />

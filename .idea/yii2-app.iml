@@ -76,6 +76,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/robthree/twofactorauth" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/lexer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/davidhirtz/yii2-anakin" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/npm-asset/skeleton-router" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
