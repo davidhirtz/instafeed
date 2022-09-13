@@ -54,6 +54,8 @@ class InstagramTokenController extends Controller
             'query' => InstagramToken::find(),
         ]);
 
+        $provider->getSort()->defaultOrder = ['updated_at' => SORT_DESC];
+
         return $this->render('index', [
             'provider' => $provider,
         ]);
