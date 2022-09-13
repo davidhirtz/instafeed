@@ -29,7 +29,7 @@ class InstagramTokenController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['create', 'delete', 'index', 'refresh', 'reset', 'update'],
+                        'actions' => ['create', 'delete', 'index', 'preview', 'refresh', 'reset', 'update'],
                         'roles' => [User::AUTH_ROLE_ADMIN],
                     ],
                 ],
@@ -91,6 +91,19 @@ class InstagramTokenController extends Controller
         }
 
         return $this->render('update', [
+            'instagram' => $instagram,
+        ]);
+    }
+
+    /**
+     * @param int $id
+     * @return string|Response
+     */
+    public function actionPreview($id)
+    {
+        $instagram = $this->findInstagramToken($id);
+
+        return $this->render('preview', [
             'instagram' => $instagram,
         ]);
     }

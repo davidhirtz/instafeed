@@ -9,7 +9,7 @@ return [
         'urlManager' => [
             'rules' => [
                 '<action:authorize|deleted|login>' => 'auth/<action>',
-                '<slug>' => 'api/',
+                '<slug>' => 'api/index',
             ],
         ],
     ],

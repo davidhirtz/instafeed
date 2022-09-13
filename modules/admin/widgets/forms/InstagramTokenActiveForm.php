@@ -4,6 +4,7 @@ namespace app\modules\admin\widgets\forms;
 
 use app\controllers\ApiController;
 use app\models\InstagramToken;
+use davidhirtz\yii2\skeleton\helpers\Html;
 use davidhirtz\yii2\skeleton\widgets\bootstrap\ActiveForm;
 use Yii;
 
@@ -38,10 +39,13 @@ class InstagramTokenActiveForm extends ActiveForm
         echo $this->field($this->model, 'slug', ['enableClientValidation' => false])
             ->prependInput($hostInfo);
 
-        if ($this->model->access_token) {
+        if ($token = $this->model->access_token) {
             echo $this->horizontalLine();
             echo $this->plainTextRow($this->model->getAttributeLabel('username'), "{$this->model->username} ({$this->model->user_id})");
-            echo $this->plainTextRow($this->model->getAttributeLabel('access_token'), $this->model->access_token ? '*******' : '');
+
+            $url = "https://developers.facebook.com/tools/debug/accesstoken/?access_token={$token}";
+            echo $this->plainTextRow($this->model->getAttributeLabel('access_token'), Html::a($token, $url, ['target' => '_blank']));
+
             echo $this->plainTextRow($this->model->getAttributeLabel('refreshed_at'), $this->model->refreshed_at ? Yii::$app->getFormatter()->asDatetime($this->model->refreshed_at) : '–');
             echo $this->plainTextRow($this->model->getAttributeLabel('expires_at'), $this->model->expires_at ? Yii::$app->getFormatter()->asDatetime($this->model->expires_at) : '–');
         }

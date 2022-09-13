@@ -86,9 +86,6 @@
     <orderEntry type="library" name="Lazysizes 5.1.1" level="application" />
     <orderEntry type="library" name="jQuery 3.4.1" level="application" />
     <orderEntry type="library" name="JSTZ Timezone" level="application" />
-    <orderEntry type="library" name="jQuery 3.5.1" level="application" />
     <orderEntry type="library" name="Timezone" level="application" />
-    <orderEntry type="library" name="Bootbox" level="project" />
-    <orderEntry type="library" name="Timeago" level="application" />
   </component>
 </module>

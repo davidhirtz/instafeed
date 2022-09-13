@@ -160,6 +160,14 @@ class InstagramToken extends ActiveRecord
 
     /**
      * @return array
+     */
+    public function getRoute(): array
+    {
+        return ['/api/index', 'slug' => $this->slug];
+    }
+
+    /**
+     * @return array
      * @noinspection PhpUnused
      */
     public function getTrailAttributes(): array

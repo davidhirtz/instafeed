@@ -12,6 +12,7 @@ use yii\web\Response;
 
 /**
  * ApiController implements the API endpoint for websites.
+ * @property Response $response
  */
 class ApiController extends Controller
 {
@@ -20,7 +21,10 @@ class ApiController extends Controller
      */
     public $enableCsrfValidation = false;
 
-
+    /**
+     * @param $action
+     * @return bool
+     */
     public function beforeAction($action)
     {
         $this->response->format = Response::FORMAT_JSON;
