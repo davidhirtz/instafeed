@@ -104,12 +104,14 @@ class InstagramToken extends ActiveRecord
     {
         $response = (new Client())->get('https://graph.instagram.com/refresh_access_token', [
             'query' => [
-                'grant_type' => 'ig_exchange_token',
-                'ig_exchange_token' => $this->access_token,
+                'grant_type' => 'ig_refresh_token',
+                'access_token' => $this->access_token,
             ],
         ]);
 
         $this->setAttributesFromApiResponse($response);
+        $this->refreshed_at = new DateTime();
+
         return $this;
     }
 
