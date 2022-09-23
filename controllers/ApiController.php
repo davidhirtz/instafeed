@@ -27,6 +27,7 @@ class ApiController extends Controller
      */
     public function beforeAction($action)
     {
+        Yii::$app->getResponse()->getHeaders()->set('Access-Control-Allow-Origin', '*');
         $this->response->format = Response::FORMAT_JSON;
         return parent::beforeAction($action);
     }
@@ -42,8 +43,6 @@ class ApiController extends Controller
         if (!$instagram || !$instagram->access_token) {
             throw new NotFoundHttpException();
         }
-
-        Yii::$app->getResponse()->getHeaders()->set('Access-Control-Allow-Origin', '*');
 
         return Yii::$app->getCache()->getOrSet($instagram->getCacheKey(), function () use ($instagram) {
             return $this->getMediaForAccessToken($instagram->access_token);
