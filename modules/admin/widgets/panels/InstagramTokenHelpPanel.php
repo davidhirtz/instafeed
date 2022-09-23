@@ -39,6 +39,7 @@ class InstagramTokenHelpPanel extends HelpPanel
         if ($this->model->username) {
             return [
                 $this->getPreviewButton(),
+                $this->getLoginLinkButton(),
                 $this->getRefreshButton(),
                 $this->getResetButton(),
             ];
@@ -53,7 +54,7 @@ class InstagramTokenHelpPanel extends HelpPanel
      */
     protected function getLoginLinkButton()
     {
-        return Html::button(Html::iconText('clipboard', Yii::t('app', 'Show login link')), [
+        return Html::button(Html::iconText('link', Yii::t('app', 'Show login link')), [
             'class' => 'btn btn-secondary',
             'data-confirm' => Html::tag('div', $this->model->getLoginUrl(), ['class' => 'text-break']),
         ]);
@@ -66,7 +67,7 @@ class InstagramTokenHelpPanel extends HelpPanel
     {
         /** @see InstagramTokenController::actionPreview() */
         return Html::a(Html::iconText('images', Yii::t('app', 'Preview media')), ['preview', 'id' => $this->model->id], [
-            'class' => 'btn btn-primary',
+            'class' => 'btn btn-secondary',
         ]);
     }
 

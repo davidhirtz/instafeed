@@ -40,10 +40,6 @@ class AuthController extends Controller
     {
         $instagram = $this->getInstagramTokenFromState($state);
 
-        if ($instagram->access_token) {
-            throw new ForbiddenHttpException(Yii::t('app', 'This Instagram account is already connected to a user.'));
-        }
-
         /** @see AuthController::actionAuthorize() */
         return $this->redirect('https://api.instagram.com/oauth/authorize?' . http_build_query([
                 'client_id' => Yii::$app->params['instagramAppId'],
@@ -95,6 +91,7 @@ class AuthController extends Controller
                 'access_token' => $data['access_token'],
             ]));
 
+        $instagram->resetInstagramAttributes();
         $instagram->setAttributesFromApiResponse($response);
 
         $response = $client->get('https://graph.instagram.com/me?' . http_build_query([
