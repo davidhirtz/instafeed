@@ -38,7 +38,8 @@ class AuthController extends Controller
      */
     public function actionLogin($state)
     {
-        $instagram = $this->getInstagramTokenFromState($state);
+        // Make sure state is valid
+        $this->getInstagramTokenFromState($state);
 
         /** @see AuthController::actionAuthorize() */
         return $this->redirect('https://api.instagram.com/oauth/authorize?' . http_build_query([
@@ -57,10 +58,6 @@ class AuthController extends Controller
     public function actionAuthorize($state)
     {
         $instagram = $this->getInstagramTokenFromState($state);
-
-        if ($instagram->access_token) {
-            throw new ForbiddenHttpException(Yii::t('app', 'This Instagram account is already connected to a user.'));
-        }
 
         $response = Yii::$app->getRequest();
         $client = new Client();
@@ -210,7 +207,6 @@ class AuthController extends Controller
         $expectedSignature = hash_hmac('sha256', $payload, Yii::$app->params['instagramAppSecret'], true);
 
         if ($signature !== $expectedSignature) {
-            Yii::debug('Bad Signed JSON signature!');
             return null;
         }
 
