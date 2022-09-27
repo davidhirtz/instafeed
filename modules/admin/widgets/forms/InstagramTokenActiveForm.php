@@ -41,7 +41,8 @@ class InstagramTokenActiveForm extends ActiveForm
 
         if ($token = $this->model->access_token) {
             echo $this->horizontalLine();
-            echo $this->plainTextRow($this->model->getAttributeLabel('username'), "{$this->model->username} ({$this->model->user_id})");
+            $username = $this->model->username ? Html::a("{$this->model->username} ({$this->model->user_id})", "https://www.instagram.com/{$this->model->username}/", ['target' => '_blank']) : '-';
+            echo $this->plainTextRow($this->model->getAttributeLabel('username'), $username);
 
             $url = "https://developers.facebook.com/tools/debug/accesstoken/?access_token={$token}";
             echo $this->plainTextRow($this->model->getAttributeLabel('access_token'), Html::a($token, $url, ['target' => '_blank']));
