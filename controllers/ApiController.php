@@ -57,7 +57,7 @@ class ApiController extends Controller
     {
         try {
             $client = new Client();
-            $response = $client->get('https://graph.instagram.com/me/media?fields=media_url,permalink', [
+            $response = $client->get('https://graph.instagram.com/me/media', [
                 'query' => [
                     'access_token' => $accessToken,
                     'fields' => 'id,caption,media_url,permalink,media_type',

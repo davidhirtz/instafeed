@@ -45,7 +45,7 @@ class AuthController extends Controller
         return $this->redirect('https://api.instagram.com/oauth/authorize?' . http_build_query([
                 'client_id' => Yii::$app->params['instagramAppId'],
                 'redirect_uri' => $this->getRedirectUri(),
-                'scope' => 'user_profile,user_media,instagram_graph_user_profile,instagram_graph_user_media',
+                'scope' => 'user_profile,user_media',
                 'response_type' => 'code',
                 'state' => $state,
             ]));
