@@ -69,7 +69,6 @@ class ApiController extends Controller
             ]);
 
             $data = json_decode($response->getBody()->getContents(), true);
-            Yii::warning($data);
             unset($data['paging']['next']);
             return $data;
         } catch (Exception $exception) {
