@@ -17,12 +17,11 @@
     "composer/composer": "^1.0"
   },
   "config": {
-    "process-timeout": 1800,
-    "fxp-asset": {
-      "enabled": false
-    },
     "allow-plugins": {
       "yiisoft/yii2-composer": true
+    },
+    "platform": {
+      "php": "7.4"
     }
   },
   "repositories": [
