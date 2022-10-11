@@ -28,6 +28,10 @@ $url = Yii::$app->getUrlManager()->createAbsoluteUrl($instagram->getRoute())
         width: 50%;
     }
 
+    video{
+        width: 100%;
+    }
+
     @media (min-width: 768px) {
         .instagram-item {
             width: 25%;
