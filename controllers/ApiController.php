@@ -34,7 +34,7 @@ class ApiController extends Controller
 
     /**
      * @param string $slug
-     * @return Response
+     * @return array
      */
     public function actionIndex($slug)
     {
@@ -44,9 +44,13 @@ class ApiController extends Controller
             throw new NotFoundHttpException();
         }
 
-        return Yii::$app->getCache()->getOrSet($instagram->getCacheKey(), function () use ($instagram) {
-            return $this->getMediaForAccessToken($instagram->access_token);
-        }, $instagram->cache_duration);
+        if ($instagram->cache_duration) {
+            return Yii::$app->getCache()->getOrSet($instagram->getCacheKey(), function () use ($instagram) {
+                return $this->getMediaForAccessToken($instagram->access_token);
+            }, $instagram->cache_duration);
+        }
+
+        return $this->getMediaForAccessToken($instagram->access_token);
     }
 
     /**
