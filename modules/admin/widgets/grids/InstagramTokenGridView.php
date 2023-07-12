@@ -20,6 +20,10 @@ class InstagramTokenGridView extends GridView
      */
     public function init()
     {
+        $this->rowOptions = function (InstagramToken $token) {
+            return ['class' => $token->isExpired() ? 'disabled' : ''];
+        };
+
         $this->columns = [
             $this->nameColumn(),
             $this->usernameColumn(),

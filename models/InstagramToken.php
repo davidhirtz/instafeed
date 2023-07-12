@@ -140,11 +140,19 @@ class InstagramToken extends ActiveRecord
     }
 
     /**
+     * @return array
+     */
+    public function getAdminUrl(): array
+    {
+        return ['/admin/instagram-token/update', 'id' => $this->id];
+    }
+
+    /**
      * @return string
      */
     public function getCacheKey()
     {
-        return "ig-cache-{$this->id}";
+        return "ig-cache-$this->id";
     }
 
     /**
@@ -197,7 +205,15 @@ class InstagramToken extends ActiveRecord
      */
     public function getTrailModelAdminRoute()
     {
-        return $this->id ? ['/admin/instagram-token/update', 'id' => $this->id] : false;
+        return $this->id ? $this->getAdminUrl() : false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExpired(): bool
+    {
+        return $this->expires_at < new DateTime();
     }
 
     /**

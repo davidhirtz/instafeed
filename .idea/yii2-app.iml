@@ -78,6 +78,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/davidhirtz/yii2-anakin" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/npm-asset/skeleton-router" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/npm-asset/lazysizes" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/deprecations" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/npm-asset/jstimezonedetect" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

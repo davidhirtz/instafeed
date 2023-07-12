@@ -29,6 +29,7 @@ class ApiController extends Controller
     {
         Yii::$app->getResponse()->getHeaders()->set('Access-Control-Allow-Origin', '*');
         $this->response->format = Response::FORMAT_JSON;
+
         return parent::beforeAction($action);
     }
 
