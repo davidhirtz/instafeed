@@ -13,8 +13,7 @@
   },
   "require-dev": {
     "yiisoft/yii2-debug": "*",
-    "yiisoft/yii2-gii": "*",
-    "composer/composer": "^1.0"
+    "yiisoft/yii2-gii": "*"
   },
   "config": {
     "allow-plugins": {
