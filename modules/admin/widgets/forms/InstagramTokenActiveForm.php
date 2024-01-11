@@ -5,6 +5,7 @@ namespace app\modules\admin\widgets\forms;
 use app\controllers\ApiController;
 use app\models\InstagramToken;
 use davidhirtz\yii2\skeleton\helpers\Html;
+use davidhirtz\yii2\skeleton\modules\admin\widgets\forms\traits\ModelTimestampTrait;
 use davidhirtz\yii2\skeleton\widgets\bootstrap\ActiveForm;
 use Yii;
 
@@ -14,12 +15,11 @@ use Yii;
  */
 class InstagramTokenActiveForm extends ActiveForm
 {
+    use ModelTimestampTrait;
+
     public $hasStickyButtons = true;
 
-    /**
-     * @return void
-     */
-    public function renderFields()
+    public function renderFields(): void
     {
         echo $this->field($this->model, 'name');
         echo $this->field($this->model, 'description')->textarea(['rows' => 2]);
@@ -44,11 +44,16 @@ class InstagramTokenActiveForm extends ActiveForm
             $username = $this->model->username ? Html::a("{$this->model->username} ({$this->model->user_id})", "https://www.instagram.com/{$this->model->username}/", ['target' => '_blank']) : '-';
             echo $this->plainTextRow($this->model->getAttributeLabel('username'), $username);
 
-            $url = "https://developers.facebook.com/tools/debug/accesstoken/?access_token={$token}";
+            $url = "https://developers.facebook.com/tools/debug/accesstoken/?access_token=$token";
             echo $this->plainTextRow($this->model->getAttributeLabel('access_token'), Html::a($token, $url, ['target' => '_blank']));
 
             echo $this->plainTextRow($this->model->getAttributeLabel('refreshed_at'), $this->model->refreshed_at ? Yii::$app->getFormatter()->asDatetime($this->model->refreshed_at) : '–');
             echo $this->plainTextRow($this->model->getAttributeLabel('expires_at'), $this->model->expires_at ? Yii::$app->getFormatter()->asDatetime($this->model->expires_at) : '–');
         }
+    }
+
+    public function renderFooter(): void
+    {
+        echo $this->listRow($this->getTimestampItems());
     }
 }
