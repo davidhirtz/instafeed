@@ -15,7 +15,7 @@ use davidhirtz\yii2\skeleton\widgets\bootstrap\Panel;
 use davidhirtz\yii2\skeleton\widgets\forms\DeleteActiveForm;
 use yii\helpers\Url;
 
-$this->setTitle(Yii::t('app', 'Update Instagram Account'));
+$this->setTitle(Yii::t('app', 'Update Account'));
 $this->setBreadcrumb(Yii::t('app', 'Accounts'), ['index']);
 ?>
 

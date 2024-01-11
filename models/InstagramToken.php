@@ -183,8 +183,6 @@ class InstagramToken extends ActiveRecord
     public function getTrailAttributes(): array
     {
         return array_diff($this->attributes(), [
-            'access_token',
-            'verification_token',
             'updated_at',
             'created_at',
         ]);

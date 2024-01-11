@@ -32,7 +32,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/service-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/npm-asset/bootbox" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/davidhirtz/yii2-timeago" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php80" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/davidhirtz/yii2-lazysizes" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/mailer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/npm-asset/blueimp-load-image" />
@@ -67,8 +66,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/davidhirtz/yii2-anakin" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/npm-asset/skeleton-router" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/npm-asset/lazysizes" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/deprecations" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/npm-asset/jstimezonedetect" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tinymce/tinymce" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

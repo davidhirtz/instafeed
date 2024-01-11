@@ -7,6 +7,7 @@ use app\modules\admin\controllers\InstagramTokenController;
 use davidhirtz\yii2\skeleton\helpers\Html;
 use davidhirtz\yii2\skeleton\modules\admin\widgets\panels\HelpPanel;
 use Yii;
+use yii\helpers\Url;
 
 /**
  *
@@ -20,39 +21,61 @@ class InstagramTokenHelpPanel extends HelpPanel
 
     public function init()
     {
-        if ($this->title === null) {
-            $this->title = Yii::t('app', 'Setup');
-        }
+        $this->title ??= Yii::t('app', 'Instagram');
+        $this->setId($this->getId(false) ?? 'instagram');
 
-        if ($this->content === null) {
-            $this->content = $this->renderButtonToolbar(array_filter($this->getButtons()));
-        }
+        $this->content ??= $this->model->username
+            ? $this->renderUpdateInstagramContent()
+            : $this->renderCreateInstagramContent();
+
 
         parent::init();
     }
 
-    /**
-     * @return array
-     */
-    protected function getButtons(): array
+    protected function renderCreateInstagramContent(): string
     {
-        if ($this->model->username) {
-            return [
-                $this->getPreviewButton(),
-                $this->getLoginLinkButton(),
-                $this->getRefreshButton(),
-                $this->getResetButton(),
-            ];
-        }
+        $text = Yii::t('app', 'Instagram is not linked to this account yet. Connect it by clicking the link below:');
+        $content = $this->renderHelpBlock($text);
 
-        return [$this->getLoginLinkButton()];
+        $url = $this->model->getLoginUrl();
+
+        $link = Html::tag('div', Html::a($url, $url, ['target' => '_blank']), [
+            'id' => 'instagram-link',
+            'class' => 'text-break',
+        ]);
+
+        $content .= $this->renderHelpBlock($link);
+
+        $button = Html::button(Html::iconText('link', Yii::t('app', 'Copy link')), [
+            'class' => 'btn btn-secondary',
+            'onclick' => "navigator.clipboard.writeText('$url')",
+        ]);
+
+        $content .= $this->renderButtonToolbar($button);
+
+        return $content;
     }
 
+    protected function renderUpdateInstagramContent(): string
+    {
+        $url = Url::toRoute($this->model->getRoute(), true);
 
-    /**
-     * @return string
-     */
-    protected function getLoginLinkButton()
+        $text = Yii::t('app', 'Instagram account "{name}" is linked to this account and available via API endpoint {endpoint}.', [
+            'name' => $this->model->username,
+            'endpoint' => Html::a($url, $url, ['target' => '_blank']),
+        ]);
+
+        $buttons = [
+            $this->getPreviewButton(),
+            $this->getLoginLinkButton(),
+            $this->getRefreshButton(),
+            $this->getResetButton(),
+        ];
+
+        return $this->renderHelpBlock($text) . $this->renderButtonToolbar(array_filter($buttons));
+    }
+
+    protected function getLoginLinkButton(): string
     {
         return Html::button(Html::iconText('link', Yii::t('app', 'Show login link')), [
             'class' => 'btn btn-secondary',
@@ -60,10 +83,7 @@ class InstagramTokenHelpPanel extends HelpPanel
         ]);
     }
 
-    /**
-     * @return string
-     */
-    protected function getPreviewButton()
+    protected function getPreviewButton(): string
     {
         /** @see InstagramTokenController::actionPreview() */
         return Html::a(Html::iconText('images', Yii::t('app', 'Preview media')), ['preview', 'id' => $this->model->id], [
@@ -71,10 +91,7 @@ class InstagramTokenHelpPanel extends HelpPanel
         ]);
     }
 
-    /**
-     * @return string
-     */
-    protected function getRefreshButton()
+    protected function getRefreshButton(): string
     {
         /** @see InstagramTokenController::actionRefresh() */
         return Html::a(Html::iconText('sync', Yii::t('app', 'Refresh token')), ['refresh', 'id' => $this->model->id], [
@@ -83,13 +100,10 @@ class InstagramTokenHelpPanel extends HelpPanel
         ]);
     }
 
-    /**
-     * @return string
-     */
-    protected function getResetButton()
+    protected function getResetButton(): string
     {
         /** @see InstagramTokenController::actionReset() */
-        return Html::a(Html::iconText('trash-alt', Yii::t('app', 'Reset account')), ['reset', 'id' => $this->model->id], [
+        return Html::a(Html::iconText('trash-alt', Yii::t('app', 'Unlink account')), ['reset', 'id' => $this->model->id], [
             'class' => 'btn btn-danger',
             'data-confirm' => Yii::t('app', 'Are you sure you want to reset this Instagram account?'),
             'data-method' => 'post',

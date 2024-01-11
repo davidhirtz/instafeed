@@ -6,6 +6,9 @@
 return [
     'name' => 'Instagram Token Management',
     'components' => [
+        'user' => [
+
+        ],
         'urlManager' => [
             'rules' => [
                 '<action:authorize|deleted|login>' => 'auth/<action>',
